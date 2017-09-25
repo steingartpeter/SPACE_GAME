@@ -45,10 +45,9 @@ class APP0924{
         $html = "";
         
         $html .= '<script src="/SPACE_GAME/APP_CODE/JSCRIPT/LIBS/jquery/jquery-3.2.1.min.js"></script>';
-        //$html .= '<script src="/SPACE_GAME/APP_CODE/JSCRIPT/LIBS/bootstrap/bootstrap.min.js"></script>';
-        $html .= '<script src="/SPACE_GAME/APP_CODE/JSCRIPT/LIBS/bootstrap/popper.min.js"></script>';
+        $html .= '<script src="/SPACE_GAME/APP_CODE/JSCRIPT/LIBS/popper/popper.min.js"></script>';
         $html .= '<script src="/SPACE_GAME/APP_CODE/JSCRIPT/LIBS/bootstrap/bootstrap.min.js"></script>';
-        $html .= '<script src="/SPACE_GAME/APP_CODE/JSCRIPT/LIBS/app.js"></script>';
+        $html .= '<script src="/SPACE_GAME/APP_CODE/JSCRIPT/app.js"></script>';
         
         $html .= '<link rel="stylesheet" href="/SPACE_GAME/STYLE/bootstrap/bootstrap.min.css" />';
         $html .= '<link rel="stylesheet" href="/SPACE_GAME/STYLE/bootstrap/bootstrap-grid.min.css" />';
