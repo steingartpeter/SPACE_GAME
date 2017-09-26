@@ -14,3 +14,23 @@ nav.navbar-fixed-top{
 	font-size:42px;
 	background: linear-gradient(to bottom, #7d7e7d 0%,#0e0e0e 100%);
 }
+div.std-hlfscreen{
+	border-left:1px #505050 solid;
+	border-bottom:1px #505050 solid;
+	border-radius:12px;
+	box-shadow:3px 3px 6px #505050;
+	min-height:55px;
+}
+div.std-hlfscreen:hover{
+	border-left:1px #505050 solid;
+	border-bottom:2px #FFFF00 solid;
+	border-radius:12px;
+	box-shadow:4px 4px 8px #995599;
+}
+button.btn{
+	margin:3px;
+	margin-top:5px;
+}
+.row{
+	min-height:50px;
+}
