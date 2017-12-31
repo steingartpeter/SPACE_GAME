@@ -25,15 +25,15 @@
   	
   	</div>
   	<div class="col-lg-6 std-hlfscreen" id="planet-text">
-  		<button class="btn btn-primary" onclick="APP_JS.teszt01()">Generate 1 STAR</button>
+  		<button class="btn btn-primary" onclick="APP_JS.createOneStar()">Generate 1 STAR</button>
   		<hr/>
-  		<ul>
-  			<li>Name: ...</li>
-  			<li>Chromacity: ...</li>
-  			<li>Type: ...</li>
-  			<li>Solar mass: ...</li>
-  			<li>Sol.radius: ...</li>
-  			<li>Luminosity: ...</li>
+  		<ul id="starPropList">
+  			<li id="strNm">Name: ...</li>
+  			<li id="strChrm">Chromacity: ...</li>
+  			<li id="strTp">Type: ...</li>
+  			<li id="strSlM">Solar mass: ...</li>
+  			<li id="strSlRad">Sol.radius: ...</li>
+  			<li id="strLim">Luminosity: ...</li>
   		</ul>
   	</div>
   </div>

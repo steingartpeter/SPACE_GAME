@@ -34,3 +34,12 @@ button.btn{
 .row{
 	min-height:50px;
 }
+li.filled{
+	background-color: #5555AA;
+	border-bottom:1px dotted #75FFFF;
+	border-left:1px dotted #75FFFF;
+	border-radius:3px;
+	box-shadow:1px 1px 2px #FABE55;
+	padding-left:8px;
+}
+
