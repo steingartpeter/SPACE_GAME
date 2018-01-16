@@ -22,7 +22,9 @@
 <div class="container">
   <div class="row">
   	<div class="col-lg-6 std-hlfscreen">
-  	<button class="btn btn-primary" onclick="APP_JS.createOneStarSVG()">Generate 1 STAR-graph</button><hr/>
+  	<button class="btn btn-primary" onclick="APP_JS.createOneStarSVG()">Generate 1 STAR-graph</button>
+  	<button class="btn btn-primary" onclick="APP_JS.animateStar()">Animation (10)</button>
+  	<hr/>
   	<div id="svg-canvas01"></div>
   	</div>
   	<div class="col-lg-6 std-hlfscreen" id="planet-text">

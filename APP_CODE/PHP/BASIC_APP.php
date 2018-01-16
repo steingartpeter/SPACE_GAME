@@ -40,7 +40,11 @@ class APP0924
     //-×
     //MÓDOSTÁSOK:
     //×-
-    // @-- ... -@
+    // @-- 2018-01-16<br>
+    // Probléma: a SVG.js nem támogatja a defs tag-et, vagyis nincs lehetőség blur-ök, filterek alapértelmezett
+    // használatára, emiatt, inkább sima JS-t használok.<br>
+    // Így az SVGjs script linkjét is kiveszem.
+    // -@
     //-×
     //</SF>
         
@@ -48,7 +52,7 @@ class APP0924
         
         $html .= '<script src="/SPACE_GAME/APP_CODE/JSCRIPT/LIBS/jquery/jquery-3.2.1.min.js"></script>';
         $html .= '<script src="/SPACE_GAME/APP_CODE/JSCRIPT/LIBS/bootstrap337/js/bootstrap.min.js"></script>';
-        $html .= '<script src="/SPACE_GAME/APP_CODE/JSCRIPT/LIBS/svg/svg.min.js "></script>';
+        //$html .= '<script src="/SPACE_GAME/APP_CODE/JSCRIPT/LIBS/svg/svg.min.js "></script>';
         $html .= '<script src="/SPACE_GAME/APP_CODE/JSCRIPT/js_consts.js"></script>';
         $html .= '<script src="/SPACE_GAME/APP_CODE/JSCRIPT/app.js"></script>';
         
