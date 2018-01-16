@@ -43,3 +43,17 @@ li.filled{
 	padding-left:8px;
 }
 
+
+
+
+div.footer{
+	min-height:35px;
+	font color:#CDCDCD;
+	padding:10px;
+	border:1px #A9A9A9 solid;
+	border-radius:18px;
+	box-shadow:3px 3px 6px #454545;
+	margin:25px;
+	padding-left:120px;
+}
+

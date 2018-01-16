@@ -129,7 +129,8 @@ class APP0924
         //<nn>
         // Egy változó a legenerált tartalomhoz, amit visszaadhatunk -> $html.
         //</nn>
-        $html = "";
+        $html = "<div class=\"footer\">";
+        $html .= " made by: ax07057, &copy; 2017</div>";
         
         $html .= "</body></html>";
         

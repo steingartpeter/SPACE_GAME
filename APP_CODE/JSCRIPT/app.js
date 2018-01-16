@@ -45,6 +45,7 @@ $(function(){
 //==============================================================================================
 APP_JS.teszt01 = teszt01;
 APP_JS.createOneStar = createOneStar;
+APP_JS.createOneStarSVG = createOneStarSVG;
 APP_JS.genRND = genRND;
 APP_JS.genRNDName = genRNDName;
 
@@ -112,6 +113,36 @@ function createOneStar(){
 	//TODO: code to be written
 }
 
+function createOneStarSVG(divId){
+//<SF>
+// 2018. jan. 16.<br>
+// Ez a függvény generál egy SVG csillagképet,illanatnyilag a legegyszerűbb grafikával.<br>
+// Az SVG.js-el van egy kis probléma, nem támogatja filterek DEFS-be helyezését.
+// Enélkül pedig nem lehet, csak alapelemeket generálni. Emiatt mégis vanilla js kódot kell írni.<br>
+// PARAMÉTEREK:
+//×-
+// @-- @param divId = sztring, az SVG objektumot tartalmazó div id-je. -@
+//-×
+//MÓDOSÍTÁSOK:
+//×-
+// @-- ... -@
+//-×
+//</SF>
+	
+	if(divId === undefined){
+		divId = "svg-canvas01";
+		console.info("ID = undefined, default value applied!");
+	}
+	
+	var cntnr = SVG(divId).size(400,400);
+	var rect = cntnr.rect(400,400).attr({fill:"#CDCDCD"});
+	
+}
+
+
+//==============================================================================================
+//################          HELPER FÜGGVÉNYEK IMPLEMENTÁCIÓJA            #######################
+//==============================================================================================
 function genRND(min, max){
 //<SF>
 // 2017. dec. 31.<br>
