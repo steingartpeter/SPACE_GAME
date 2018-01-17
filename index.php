@@ -24,6 +24,7 @@
   	<div class="col-lg-6 std-hlfscreen">
   	<button class="btn btn-primary" onclick="APP_JS.createOneStarSVG()">Generate 1 STAR-graph</button>
   	<button class="btn btn-primary" onclick="APP_JS.animateStar()">Animation (10)</button>
+  	<button class="btn btn-primary" onclick="APP_JS.generateBgStars()">Backgrnd stars</button>
   	<hr/>
   	<div id="svg-canvas01"></div>
   	</div>

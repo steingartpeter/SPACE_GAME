@@ -47,8 +47,10 @@ APP_JS.teszt01 = teszt01;
 APP_JS.createOneStar = createOneStar;
 APP_JS.createOneStarSVG = createOneStarSVG;
 APP_JS.animateStar = animateStar;
+APP_JS.generateBgStars = generateBgStars;
 APP_JS.genRND = genRND;
 APP_JS.genRNDName = genRNDName;
+APP_JS.genRNDHexColor = genRNDHexColor
 
 
 //==============================================================================================
@@ -193,6 +195,28 @@ function createOneStarSVG(divId){
 	//</nn>
 	fltr01.appendChild(feGausBlr01);
 	
+	
+	
+	//<nn>
+	// Most jöhet egy újabb filter.
+	//</nn>
+	var fltr02 = document.createElementNS(APP_JS.CONSTS.SVGNS, "filter");
+	fltr02.setAttribute('id','fltr02');
+	fltr02.setAttribute('y',0);
+	fltr02.setAttribute('x',0);
+	
+	//<nn>
+	// A filter gaussian blur-je:
+	//</nn>
+	var feGausBlr02 =document.createElementNS(APP_JS.CONSTS.SVGNS, "feGaussianBlur");
+	feGausBlr02.setAttribute('id','fGausBlur02');
+	feGausBlr02.setAttribute('stdDeviation',1);
+	
+	//<nn>
+	// Beteszük a filterbe a blur-t.
+	//</nn>
+	fltr02.appendChild(feGausBlr02);
+	
 	//<nn>
 	// Most jöhet egy radiál gradinet.
 	//</nn>
@@ -223,6 +247,7 @@ function createOneStarSVG(divId){
 	//</nn>
 	defs.appendChild(lg1);
 	defs.appendChild(fltr01);
+	defs.appendChild(fltr02);
 	defs.appendChild(rGrad01);
 	//<nn>
 	// Betesszük a feltöltött defs-t az svg-be. 
@@ -265,10 +290,15 @@ function createOneStarSVG(divId){
 	// - A második maga a csilag.<br>
 	// - A harmadik pedig a 3D fény.<br>
 	//</nn>
+	
+	//<nn>
+	//Hazsnáljunk most véletlengenerált mértetet!
+	//</nn>
+	var r = Math.floor(APP_JS.genRND(50,140));
 	var crcl01 = document.createElementNS(APP_JS.CONSTS.SVGNS, "circle");
 	crcl01.setAttribute("cx", 210);
 	crcl01.setAttribute("cy", 210);
-	crcl01.setAttribute("r", 100);
+	crcl01.setAttribute("r", r);
 	crcl01.setAttribute("id", "hatsoFeny");
 	crcl01.setAttribute("style", 'fill:#DEAD05;fill-opacity:1;filter:url(#fltr01);');
 	lyr03.appendChild(crcl01);
@@ -276,7 +306,7 @@ function createOneStarSVG(divId){
 	var crcl02 = document.createElementNS(APP_JS.CONSTS.SVGNS, "circle");
 	crcl02.setAttribute("cx", 210);
 	crcl02.setAttribute("cy", 210);
-	crcl02.setAttribute("r", 90);
+	crcl02.setAttribute("r", (r*.9));
 	crcl02.setAttribute("id", "csillagAlap");
 	crcl02.setAttribute("style", 'fill:#FFCE1E;fill-opacity:1;');
 	lyr03.appendChild(crcl02);
@@ -284,7 +314,7 @@ function createOneStarSVG(divId){
 	var crcl03 = document.createElementNS(APP_JS.CONSTS.SVGNS, "circle");
 	crcl03.setAttribute("cx", 210);
 	crcl03.setAttribute("cy", 210);
-	crcl03.setAttribute("r", 90);
+	crcl03.setAttribute("r", (r*.9));
 	crcl03.setAttribute("id", "fenyEloter");
 	crcl03.setAttribute("style", 'fill:url(#radGrad01);fill-opacity:1;');
 	lyr03.appendChild(crcl03);
@@ -305,35 +335,105 @@ function animateStar(sz){
 // Egy tesztanmimáció, ami 10 szer játszódik le...<br>
 // PARAMÉTEREK:
 //×-
-// @-- @param ... = ... -@
+// @-- @param sz = az animáció ismétlésszáma -@
 //-×
 //MÓDOSÍTÁSOK:
 //×-
 // @-- ... -@
 //-×
 //</SF>
+	
+	//<nn>
+	// SZerzünk egy referenciát a hátsó fényt reprezentáló SVG objetumra, majd kiolvassuk 
+	// annak opacity tulajdonságát az op változóba.
+	//</nn>
 	var op = $("#hatsoFeny").css("opacity");
-	console.log("Hivas: " + sz);
+	
+	//<nn>
+	// Ha nem küldtünk be paramétert, az lapértelmezett 10 ismétlést hasjtjuk végre.<br>
+	// Amig az ismétlés
+	//</nn>
 	if(sz === undefined){
 		sz = 1;
-	}else if(sz > 10){
+	}
+	
+	if(sz > 10){
 		return;
 	}else{
+		if(op > .5){
+			$("#hatsoFeny").animate({
+				"opacity":.35
+			},500,function(){
+				sz++;
+				APP_JS.animateStar(sz);
+			});
+		}else{
+			$("#hatsoFeny").animate({
+				"opacity":.85
+			},1150,function(){
+				sz++;
+				APP_JS.animateStar(sz);
+			});
+		}
 	}
-	if(op > .5){
-		$("#hatsoFeny").animate({
-			"opacity":.35
-		},500,function(){
-			sz++;
-			APP_JS.animateStar(sz);
-		});
-	}else{
-		$("#hatsoFeny").animate({
-			"opacity":.85
-		},1150,function(){
-			sz++;
-			APP_JS.animateStar(sz);
-		});
+	
+	
+	
+}
+
+function generateBgStars(cnt){
+//<SF>
+// 2018. jan. 17.<br>
+// Ez a függvény a paraméterként kapott id-jű svg g (layer) elemhez ad véletlenszámú, véleltlen
+// koordinátájú csillagot.<br>
+// PARAMÉTEREK:
+//×-
+// @-- @param  cnt = sztring: a tartalmazó svgLayout (g) elem ID-je -@
+//-×
+//MÓDOSÍTÁSOK:
+//×-
+// @-- ... -@
+//-×
+//</SF>
+	
+	//<nn>
+	// Ellenőrizük megjött-e az id, vagy az alapértelmezettet használjuk-e.
+	//</nn>
+	if(cnt === undefined){
+		cnt = "lyr-bgrnd";
+	}
+	//<nn>
+	// Létrehozzuk a megfelelő változókat:<br>
+	// - egy az SVG ábra layer-ének (lyr)<br>
+	// - egy a legenerálandó csillagok számának(nr)<br>
+	//</nn>
+	var lyr = document.getElementById(cnt);
+	var nr = genRND(300, 450);
+	console.log("Csillagok száma: " + nr);
+	//<nn>
+	// Egy for ciklussal legenráljuk a hátércsillagokat.
+	//</nn>
+	for(var ix1=0; ix1<nr; ix1++){
+		var crcl = document.createElementNS(APP_JS.CONSTS.SVGNS, "circle");
+		crcl.setAttribute("cx", APP_JS.genRND(1, 399));
+		crcl.setAttribute("cy", APP_JS.genRND(1, 399));
+		crcl.setAttribute("r", 1);
+		crcl.setAttribute("id", "bgSTar"+ix1);
+		if(APP_JS.genRND() < 50){
+			if(APP_JS.genRND() < 75){
+				crcl.setAttribute("style", 'fill:#FFFFFF;fill-opacity:'+ APP_JS.genRND()/100 +';');
+			}else{
+				crcl.setAttribute("style", 'fill:#FFFFFF;fill-opacity:'+ APP_JS.genRND()/100 +';filter:url(#fltr02);');
+			}
+		}else{
+			if(true){
+				crcl.setAttribute("style", 'fill:' + APP_JS.genRND()  + ';fill-opacity:'+ APP_JS.genRND()/100 +';filter:url(#fltr02);');
+			}else{
+				crcl.setAttribute("style", 'fill:' + APP_JS.genRND()  + ';fill-opacity:'+ APP_JS.genRND()/100 +';filter:url(#fltr02);');
+			}
+		}
+		
+		lyr.appendChild(crcl);
 	}
 	
 }
@@ -395,5 +495,30 @@ function genRNDName(){
 	return nev.toUpperCase();
 }
  
- 
+function genRNDHexColor(){
+//<SF>
+// 2018. jan. 17.<br>
+// Ez a függvény egy véletlenszínt generál.<br>
+// PARAMÉTEREK:
+//×-
+// @-- @param ... = ... -@
+//-×
+//MÓDOSÍTÁSOK:
+//×-
+// @-- ... -@
+//-×
+//</SF>
+	
+	var clr = "#";
+	
+	var r = APP_JS.genRND(100,255);
+	var g = APP_JS.genRND(100,255);
+	var b = APP_JS.genRND(100,255);
+	
+	clr = clr + ("0" + r.toString(16)).substr(-2);
+	clr = clr + ("0" + g.toString(16)).substr(-2);
+	clr = clr + ("0" + b.toString(16)).substr(-2);
+	
+	return clr.toUpperCase();
+} 
  
